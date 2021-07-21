@@ -14,7 +14,7 @@
                   label="Search npm packages"
                   hide-details=""
                   color="cyan darken-4"
-                  @input="startSearch(false)"
+                  v-debounce:400ms="startSearch"
                   v-model="search_query"
                 ></v-text-field>
               </v-col>
@@ -100,7 +100,7 @@ export default {
       this.windowWidth = window.innerWidth;
     },
     startSearch(is_paginate) {
-      if (is_paginate === false) {
+      if (typeof is_paginate === "boolean" && is_paginate === false) {
         this.page = 1;
       }
       this.loading = true;
